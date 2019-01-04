@@ -7,11 +7,11 @@ import './styles.css';
 // Weather api
 // https://api.openweathermap.org/data/2.5/weather?q=London,uk&appid=f6e14397267c980d1c3e3172c4b8f325
 
-const location = "Buenos Aires, ar";
-const api_key = "";
-const url_base_weather = "";
+const location = "Cali, co";
+const api_key = "f6e14397267c980d1c3e3172c4b8f325";
+const url_base_weather = "https://api.openweathermap.org/data/2.5/weather";
 
-
+const api_weather = `${url_base_weather}?q=${location}&appid=${api_key}`;
 
 // Las funciones y/o constantes van por fuera de la clase
 const data = {
@@ -48,13 +48,13 @@ class WeatherLocation extends Component { // Arrow function
     } 
 
     handleUpdateClick = () => {
+        fetch(api_weather);
         console.log("Actualizado!");
         this.setState({
             city: "Cali",
             data: data2,
         });
         console.log(getNumberOfDaysInMonth(1, 2012));
-        console.log() 
     }
 
     
