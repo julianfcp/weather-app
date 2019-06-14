@@ -7,6 +7,7 @@ import WeatherData from './WeatherData';
 import './styles.css';
 
 
+
 class WeatherLocation extends Component { // class component
 
     constructor() {
@@ -15,11 +16,13 @@ class WeatherLocation extends Component { // class component
             city: "Cali",
             data: null,
         }
+        
     }
 
     componentDidMount() {
         console.log("componentDidMount");
         this.handleUpdateClick();
+        debugger;
     }
     
     componentDidUpdate(prevProps, prevState) {
@@ -50,8 +53,9 @@ class WeatherLocation extends Component { // class component
             <div className="weatherLocationCont">
                 <Location city={city}></Location> 
                 {data ? <WeatherData data={data}></WeatherData>
-                      : "Loading... " /* <CircularProgress /> */
+                      :  <CircularProgress size={50}/>
                 }
+                
             </div>
         );
     }
