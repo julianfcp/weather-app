@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import getUrlByCity from './../../services/getUrlByCity';
+import PropTypes from 'prop-types';
 import Location from './Location'
 import transformWeather from './../../services/transformWeather';
-import { api_weather } from './../../constants/api_url';
 import WeatherData from './WeatherData';
 import './styles.css';
 
@@ -10,10 +11,11 @@ import './styles.css';
 
 class WeatherLocation extends Component { // class component
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
+        const { city } = props;
         this.state = {
-            city: "Cali",
+            city: city,
             data: null,
         }
         
@@ -22,7 +24,6 @@ class WeatherLocation extends Component { // class component
     componentDidMount() {
         console.log("componentDidMount");
         this.handleUpdateClick();
-        debugger;
     }
     
     componentDidUpdate(prevProps, prevState) {
@@ -32,14 +33,25 @@ class WeatherLocation extends Component { // class component
     // Esta funcion maneja la actualizacion de datos usando la api weather
     // se hace fetch a la url y se parametrizan los datos mediante la funcion transformWeather
     handleUpdateClick = () => {
+        const api_weather = getUrlByCity(this.state.city);
         fetch(api_weather).then( resolve => { 
             return resolve.json();
         }).then( data => {
-            const newWeather = transformWeather (data);
-            console.log(newWeather);
-            this.setState({
-                data: newWeather
-            });
+            // Utilizo el try catch para verificar si la url fue correcamente enviada
+            // en caso contrario la funcion transformWeather no podra ser seteada
+            // correctamente
+            try {
+                const newWeather = transformWeather (data);
+                console.log(newWeather);
+                this.setState({
+                    data: newWeather
+                });
+            }catch (err) {
+                this.setState({
+                    data: "Error"
+                });
+            }
+
         });
           
     }
@@ -59,6 +71,10 @@ class WeatherLocation extends Component { // class component
             </div>
         );
     }
+}
+
+WeatherLocation.propTypes = {
+    city: PropTypes.string.isRequired,
 }
 
 export default WeatherLocation;
