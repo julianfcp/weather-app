@@ -23,16 +23,8 @@ class WeatherLocation extends Component { // class component
 
     componentDidMount() {
         console.log("componentDidMount");
-        this.handleUpdateClick();
-    }
-    
-    componentDidUpdate(prevProps, prevState) {
-        console.log("componentDidUpdate");
-    }
-    
-    // Esta funcion maneja la actualizacion de datos usando la api weather
-    // se hace fetch a la url y se parametrizan los datos mediante la funcion transformWeather
-    handleUpdateClick = () => {
+        // En esta funcion se maneja la actualizacion de datos usando la api weather
+        // se hace fetch a la url y se parametrizan los datos mediante la funcion transformWeather
         const api_weather = getUrlByCity(this.state.city);
         fetch(api_weather).then( resolve => { 
             return resolve.json();
@@ -53,16 +45,23 @@ class WeatherLocation extends Component { // class component
             }
 
         });
-          
     }
-
+    
+    componentDidUpdate(prevProps, prevState) {
+        console.log("componentDidUpdate");
+    }
+    
     render() {
         console.log("render");
+        //onWeatherLocationClick se envia hacia Arriba como props para manejar el evento Click
+        const {onWeatherLocationClick} = this.props;
         const {city, data} = this.state; //destructuring 
         // Utilizo un operador ternario para evaluar si los datos se han setiado
         // en caso contrario se muestra " Loading ... " hasta que los datos vengan del servidor
+        // Tecnica de Burbujeo => Envia onWeatherLocationClick del evento on Click hacia los
+        // niveles superiores por medio de las propiedades (props)
         return (
-            <div className="weatherLocationCont">
+            <div className="weatherLocationCont" onClick={onWeatherLocationClick}>
                 <Location city={city}></Location> 
                 {data ? <WeatherData data={data}></WeatherData>
                       :  <CircularProgress size={50}/>
@@ -75,6 +74,7 @@ class WeatherLocation extends Component { // class component
 
 WeatherLocation.propTypes = {
     city: PropTypes.string.isRequired,
+    onWeatherLocationClick: PropTypes.func.isRequired,
 }
 
 export default WeatherLocation;
