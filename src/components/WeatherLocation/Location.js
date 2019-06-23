@@ -8,7 +8,7 @@ const Location = (props) => {
 
     return (
         <div className="locationCont">
-            <h1> {city} </h1>
+            <h2> {city} </h2>
         </div>
     );
 };

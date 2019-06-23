@@ -1,14 +1,20 @@
 .locationCont {
-    width: 100%;
-    height: 55px;
+    /*width: 100%;
+    height: 35px;*/
     color: #888;
     display: inline;
     font-size: 20px;
-    line-height: 15px;
+    line-height: 35px;
     text-align: left;
 }
+
+.locationCont h2 {
+    margin: 0;
+    white-space: nowrap;
+}
+
 .weatherLocationCont {
-    width: 400px;
+    width: calc(100% - 50px);
     padding: 25px;
     margin: 20px auto;
     -webkit-box-shadow: 7px 6px 51px 1px rgba(0,0,0,0.41);
