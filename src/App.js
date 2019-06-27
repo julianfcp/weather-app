@@ -57,23 +57,16 @@ class App extends Component {
             <Col xs={12} md={6}>
               <Paper elevation={10}>
                 <div className="details">
-                {
-                    city === null ?
-                      <h1>No se ha seleccionado Ciudad</h1> :
-                      <ForecastExtended city={city}></ForecastExtended>
+                  {
+                    city  ?
+                    <ForecastExtended city={city}></ForecastExtended> :
+                    null
                   }
                 </div>
               </Paper>
             </Col>
           </Row>
         </Grid>
-
-      {/*<div className="App">
-        <LocationList 
-          cities={cities} 
-          onSelectionClickWL={this.handleSelectionClickWL}>
-        </LocationList>
-    </div>*/}
     </MuiThemeProvider>
     );
   }

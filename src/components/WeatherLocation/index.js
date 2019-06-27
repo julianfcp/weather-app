@@ -52,7 +52,7 @@ class WeatherLocation extends Component { // class component
     }
     
     render() {
-        console.log("render");
+        console.log("render Weather Location");
         //onWeatherLocationClick se envia hacia Arriba como props para manejar el evento Click
         const {onWeatherLocationClick} = this.props;
         const {city, data} = this.state; //destructuring 
