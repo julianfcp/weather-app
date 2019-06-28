@@ -1,26 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import getUrlForecast from './../../services/getUrlForecast';
+import transformForecast from './../../services/transformForecast';
 import CircularProgress from '@material-ui/core/CircularProgress'
 import ForecastItem from './ForecastItem';
 import './styles.css';
-
-const days = [
-    'Lunes',
-    'Martes',
-    'Miercoles',
-    'Jueves',
-    'Viernes',
-    'Sabado',
-    'Domingo',
-];
-
-const data = {
-    temperature: 25,
-    weatherState: 'normal',
-    humidity: 15,
-    wind: 'normal',
-}
 
 
 class ForecastExtended extends Component {
@@ -44,14 +28,30 @@ class ForecastExtended extends Component {
             weather_data => {
                 // Una ves convertido el objeto data a json se recibe en weather_data (variable 
                 // nueva) y se muestra en consola
-                console.log("ComponentDidMount Forecast")
-                console.log(weather_data);
+                console.log("ComponentDidMount ForecastExtended: " + this.state.city )
+                console.log(weather_data.list);
+                // Se utiliza la funcion de transformacion para organizar los datos
+                const forecastData = transformForecast(weather_data);
+                console.log(forecastData);
+                this.setState({
+                    forecastData: forecastData,
+                });
+                
             }
         )
     }
+    componentDidUpdate() { 
+    }
 
-    forecastDay () {
-        return days.map(day => (<ForecastItem key={day} weekDay={day} hour={10} data={data}></ForecastItem>));
+    componentWillReceiveProps() {
+       
+        
+    }
+
+    forecastDay (forecastData) {
+        return forecastData.map(forecast => (
+            <ForecastItem key={forecast.weekDay+forecast.hour} weekDay={forecast.weekDay} hour={forecast.hour} data={forecast.data}></ForecastItem>
+        ));
     }
 
     render () {
@@ -64,7 +64,7 @@ class ForecastExtended extends Component {
         <div>
             <h2 className='forecast-title'>Pronostico extendido para {city}</h2>
             {forecastData ? 
-                this.forecastDay() :
+                this.forecastDay(forecastData) :
                 <CircularProgress size={30}/>
             }
             

@@ -13,7 +13,7 @@ import './App.css';
 const cities = [
   "Cali, co",
   "Bogota, co",
-  "Mexico, mex",
+  "Washington, us",
   "Rio de janeiro, br",
   "New York, us",
 ];
@@ -27,7 +27,7 @@ class App extends Component {
   }
 
   handleSelectionClickWL = city => {
-    console.log("handle Seleccion WL" + city);
+    console.log("Selecciono ciudad: " + city);
     this.setState({
       city: city,
     })
