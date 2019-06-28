@@ -22,7 +22,7 @@ class WeatherLocation extends Component { // class component
     }
 
     componentDidMount() {
-        console.log("componentDidMount");
+        console.log("componentDidMount Weather Location");
         // En esta funcion se maneja la actualizacion de datos usando la api weather
         // se hace fetch a la url y se parametrizan los datos mediante la funcion transformWeather
         const api_weather = getUrlByCity(this.state.city);
@@ -48,7 +48,6 @@ class WeatherLocation extends Component { // class component
     }
     
     componentDidUpdate(prevProps, prevState) {
-        console.log("componentDidUpdate");
     }
     
     render() {

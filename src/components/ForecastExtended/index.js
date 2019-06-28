@@ -18,8 +18,27 @@ class ForecastExtended extends Component {
     }
 
     componentDidMount() {
+        this.updateCity(this.props.city);
+    }
+    componentDidUpdate(prevProps, prevState) {
+        // Este compomente se utiliza una ves se actualice una ciudad
+        // diferente de la primera ves y se resetea los valores de forecastData 
+        if(prevProps.city !== this.props.city) {
+            this.setState({
+                forecastData: null
+            })
+            console.log("Cambio ciudad: " + this.props.city);
+            this.updateCity(this.props.city);
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        // Este componente sera eliminado por React
+    }
+
+    updateCity (city) {
         // fetch o axios, axios soporta navegadores viejos
-        const api_forecast = getUrlForecast(this.state.city);
+        const api_forecast = getUrlForecast(city);
         fetch(api_forecast).then(
             // Cuando se ejecuta la promise se espera un objeto data
             // y se convierte a un objeto json
@@ -39,13 +58,6 @@ class ForecastExtended extends Component {
                 
             }
         )
-    }
-    componentDidUpdate() { 
-    }
-
-    componentWillReceiveProps() {
-       
-        
     }
 
     forecastDay (forecastData) {
