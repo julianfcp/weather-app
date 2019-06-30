@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { createStore } from 'redux';
 import LocationList from './components/LocationList';
 import ForecastExtended from './components/ForecastExtended';
 import Paper from '@material-ui/core/Paper';
@@ -9,6 +8,9 @@ import Toolbar from '@material-ui/core/Toolbar';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import './App.css';
+import { setCity } from './actions'
+import { connect } from 'react-redux';
+
 
 // Array de ciudades para enviar a LocationList
 const cities = [
@@ -18,10 +20,7 @@ const cities = [
   "Rio de janeiro, br",
   "New York, us",
 ];
-// creamos el store con la funcion createStore y 
-// le enviamos una arrow function (reducer)
-const store = createStore(() => {}, 
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+
 
 class App extends Component {
   constructor(props) {
@@ -36,15 +35,10 @@ class App extends Component {
     this.setState({
       city: city,
     });
-    
-    const action = {
-      // type es el nombre de la accion que creamos
-      type: 'setCity',
-      // el valor para la accion
-      value: city
-    }
-    // se ejecuta el store con la funcion dispatch y el enviamos la accion (objetoyarn)
-    store.dispatch(action);
+
+    // se ejecuta la funcion setCity como resultado de la conexion
+    // de la aplicacion con redux
+    this.props.setCity(city);
   }
 
   render() {
@@ -85,5 +79,10 @@ class App extends Component {
     );
   }
 }
-
-export default App;
+// se hace el mapeo de las acciones a ejecutar con el dispatch
+const mapDispatchToPropsActions = (dispatch) => ({
+  setCity: value => dispatch(setCity(value))
+});
+// Se realiza la conexion de la aplicacion con redux
+const AppConnected = connect(null, mapDispatchToPropsActions)(App);
+export default AppConnected;
