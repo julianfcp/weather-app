@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { createStore } from 'redux';
 import LocationList from './components/LocationList';
 import ForecastExtended from './components/ForecastExtended';
 import Paper from '@material-ui/core/Paper';
@@ -17,6 +18,10 @@ const cities = [
   "Rio de janeiro, br",
   "New York, us",
 ];
+// creamos el store con la funcion createStore y 
+// le enviamos una arrow function (reducer)
+const store = createStore(() => {}, 
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 class App extends Component {
   constructor(props) {
@@ -30,7 +35,16 @@ class App extends Component {
     console.log("Selecciono ciudad: " + city);
     this.setState({
       city: city,
-    })
+    });
+    
+    const action = {
+      // type es el nombre de la accion que creamos
+      type: 'setCity',
+      // el valor para la accion
+      value: city
+    }
+    // se ejecuta el store con la funcion dispatch y el enviamos la accion (objetoyarn)
+    store.dispatch(action);
   }
 
   render() {

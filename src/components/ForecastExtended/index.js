@@ -36,7 +36,7 @@ class ForecastExtended extends Component {
         // Este componente sera eliminado por React
     }
 
-    updateCity (city) {
+    updateCity = (city) => {
         // fetch o axios, axios soporta navegadores viejos
         const api_forecast = getUrlForecast(city);
         fetch(api_forecast).then(
@@ -60,7 +60,7 @@ class ForecastExtended extends Component {
         )
     }
 
-    forecastDay (forecastData) {
+    forecastDay = (forecastData) => {
         return forecastData.map(forecast => (
             <ForecastItem key={forecast.weekDay+forecast.hour} weekDay={forecast.weekDay} hour={forecast.hour} data={forecast.data}></ForecastItem>
         ));
