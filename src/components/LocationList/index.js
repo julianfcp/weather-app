@@ -8,7 +8,7 @@ import './style.css'
 const LocationList = ({ cities, onSelectionClickWL }) => {
 
     const handleWLClick = (city) => {
-        console.log("Weather Location was Selected");
+        console.log("Locationlist: Weather Location was Selected");
         onSelectionClickWL(city);
     }
 
