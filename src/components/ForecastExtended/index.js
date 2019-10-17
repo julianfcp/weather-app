@@ -32,10 +32,6 @@ class ForecastExtended extends Component {
         }
     }
 
-    componentWillReceiveProps(nextProps) {
-        // Este componente sera eliminado por React
-    }
-
     updateCity = (city) => {
         // fetch o axios, axios soporta navegadores viejos
         const api_forecast = getUrlForecast(city);

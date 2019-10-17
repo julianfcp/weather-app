@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import LocationList from './../components/LocationList';
-import { setCity } from './../actions';
+import { setSelectedCity } from './../actions';
 
 class LocationListContainer extends Component {
     handleSelectionClickWL = city => {
@@ -23,10 +23,6 @@ class LocationListContainer extends Component {
 }
 
 LocationListContainer.propTypes = {
-
-};
-
-LocationList.propTypes = {
     cities: PropTypes.array.isRequired,  
     // validacion funcion setCity inyectada por el dispatch de redux mediante connect
     setCity: PropTypes.func.isRequired,
@@ -34,7 +30,7 @@ LocationList.propTypes = {
 
 // se hace el mapeo de las acciones a ejecutar con el dispatch
 const mapDispatchToPropsActions = (dispatch) => ({
-    setCity: value => dispatch(setCity(value))
+    setCity: value => dispatch(setSelectedCity(value))
   });
   // Se realiza la conexion de la aplicacion con redux
 const LocationLConnected = connect(null, mapDispatchToPropsActions)(LocationListContainer);
